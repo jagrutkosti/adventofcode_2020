@@ -9,16 +9,18 @@ pub fn day2() {
             if let Ok(ip) = line {
                 let sub_str: Vec<&str> = ip.split(" ").collect();
                 let occurences: Vec<&str> = sub_str[0].split("-").collect();
+
+                // Should handle exception here!!
                 let min_occurence = occurences[0].parse().unwrap();
                 let max_occurence = occurences[1].parse().unwrap();
                 let search_char: Vec<&str> = sub_str[1].split(":").collect();
-                // let result = is_valid_string(
+                // let result = is_valid_password(
                 //     &min_occurence,
                 //     &max_occurence,
                 //     &search_char[0].chars().next().unwrap(),
                 //     sub_str[2],
                 // );
-                let result = is_valid_string_2(
+                let result = is_valid_password_2(
                     &min_occurence,
                     &max_occurence,
                     &search_char[0].chars().next().unwrap(),
@@ -35,7 +37,7 @@ pub fn day2() {
     println!("Number of valid passwords: {}", valid_passwords_count);
 }
 
-fn is_valid_string(
+fn is_valid_password(
     min_occurence: &u32,
     max_occurence: &u32,
     search_char: &char,
@@ -57,7 +59,7 @@ fn is_valid_string(
     }
 }
 
-fn is_valid_string_2(
+fn is_valid_password_2(
     first_position: &u32,
     second_position: &u32,
     search_char: &char,

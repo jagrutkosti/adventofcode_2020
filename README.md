@@ -8,3 +8,13 @@ Unfortunately, I do not have enough time to iterate over each problem and improv
 But maybe during Christmas vacation when I get bored!
 
 Therefore, there are also no tests present.
+
+And, I have also not taken care of the error handling where the return type is `Result`.
+Similar to the following should be in place where `unwrap()` is being used.
+
+```
+let var = match var {
+    Ok(value) => value,
+    Err(e) => return Err(e),
+};
+```
