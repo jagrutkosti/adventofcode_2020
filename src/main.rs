@@ -5,8 +5,8 @@
 mod puzzles;
 mod utils;
 
-use puzzles::day5;
+use puzzles::day1;
 
 fn main() {
-    day5::day5();
+    day1::day1();
 }

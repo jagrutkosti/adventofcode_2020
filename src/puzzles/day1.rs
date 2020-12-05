@@ -1,4 +1,5 @@
 use crate::utils::file_utils::read_lines;
+use std::collections::HashSet;
 
 pub fn day1() {
     let mut vector_int: Vec<u32> = Vec::new();
@@ -12,7 +13,16 @@ pub fn day1() {
         }
     }
 
-    let (first, second, third) = sum_to_2020(&vector_int);
+    let (first_num, second_num) = two_num_with_sum(&vector_int, 2020);
+
+    println!(
+        "First number: {}, Second number: {}, Multiplication: {}",
+        first_num,
+        second_num,
+        first_num * second_num
+    );
+
+    let (first, second, third) = three_num_with_sum(&vector_int, 2020);
 
     println!(
         "First number: {}, second number: {}, third number: {}, multiplication: {}",
@@ -23,35 +33,33 @@ pub fn day1() {
     );
 }
 
-fn sum_to_2020(vector_int: &[u32]) -> (&u32, &u32, &u32) {
-    let mut min = vector_int[0];
-    let mut second_min = min;
+fn three_num_with_sum(vector_int: &[u32], sum: u32) -> (u32, u32, u32) {
+    for int in vector_int {
+        let difference = sum - int;
+        let (first, second) = two_num_with_sum(&vector_int, difference);
 
-    for val in vector_int {
-        if val < &min {
-            second_min = min;
-            min = val.clone();
+        if first != 0 && second != 0 {
+            return (int.clone(), first, second);
         }
     }
 
-    // These values help to reduce the number of iterations
-    let max = 2020 - min - second_min;
-    let second_max = 2020 - min;
+    (0, 0, 0)
+}
 
-    for outer_val in vector_int {
-        if outer_val <= &max {
-            for inner_val in vector_int {
-                if inner_val <= &second_max {
-                    for most_inner_val in vector_int {
-                        if outer_val + inner_val + most_inner_val == 2020 {
-                            return (outer_val, inner_val, most_inner_val);
-                        }
-                    }
-                }
+fn two_num_with_sum(vector_int: &[u32], sum: u32) -> (u32, u32) {
+    let mut encountered_numbers: HashSet<u32> = HashSet::new();
+
+    for int in vector_int {
+        if &sum > int {
+            let difference = sum - int;
+
+            if encountered_numbers.contains(&difference) {
+                return (int.clone(), difference);
+            } else {
+                encountered_numbers.insert(int.clone());
             }
         }
     }
 
-    // No 3 numbers found that sum to 2020
-    (&0, &0, &0)
+    (0, 0)
 }
