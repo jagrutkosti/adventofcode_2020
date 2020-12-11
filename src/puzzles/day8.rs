@@ -74,6 +74,7 @@ fn correct_infinite_loop_and_sum(
     reached_lines: HashSet<i32>,
 ) -> i32 {
     for line in reached_lines {
+        // Cannot implement Clone trait for the Struct as it contains String
         let name_line_item = all_instructions[line as usize].name.clone();
         let value_line_item = all_instructions[line as usize].value;
 

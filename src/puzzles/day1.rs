@@ -2,7 +2,7 @@ use crate::utils::file_utils::read_lines;
 use std::collections::HashSet;
 
 pub fn day1() {
-    let mut vector_int: Vec<u32> = Vec::new();
+    let mut vector_int: Vec<u64> = Vec::new();
 
     if let Ok(lines) = read_lines("./assets/day1.txt") {
         // Consumes the iterator, returns an (Optional) String
@@ -33,7 +33,7 @@ pub fn day1() {
     );
 }
 
-fn three_num_with_sum(vector_int: &[u32], sum: u32) -> (u32, u32, u32) {
+fn three_num_with_sum(vector_int: &[u64], sum: u64) -> (u64, u64, u64) {
     for int in vector_int {
         let difference = sum - int;
         let (first, second) = two_num_with_sum(&vector_int, difference);
@@ -46,8 +46,9 @@ fn three_num_with_sum(vector_int: &[u32], sum: u32) -> (u32, u32, u32) {
     (0, 0, 0)
 }
 
-fn two_num_with_sum(vector_int: &[u32], sum: u32) -> (u32, u32) {
-    let mut encountered_numbers: HashSet<u32> = HashSet::new();
+// Chaned to public function and u64 for use in day9
+pub fn two_num_with_sum(vector_int: &[u64], sum: u64) -> (u64, u64) {
+    let mut encountered_numbers: HashSet<u64> = HashSet::new();
 
     for int in vector_int {
         if &sum > int {
